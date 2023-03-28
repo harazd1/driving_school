@@ -18,6 +18,10 @@ export class CadetService {
         return this.cadetRepository.save(newCadet);
       }
 
+      updateCadet(id: number, body) {
+        return this.cadetRepository.update({ id }, body );
+      }
+
       deleteCadet(id: number) {
         return this.cadetRepository.delete({ id });
       }
@@ -26,11 +30,4 @@ export class CadetService {
         return this.cadetRepository.findOneBy({id: id});
       }
 
-      sortCadet(){
-        return this.cadetRepository.find({
-          order: {
-            Name: 'ASC',
-          },
-        });
-      }
 }

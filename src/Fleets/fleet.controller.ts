@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Param } from '@nestjs/common';
-import { Body, Post } from '@nestjs/common/decorators';
+import { Body, Post, Put } from '@nestjs/common/decorators';
 import { FleetService } from './fleet.service';
 
 @Controller('fleet')
@@ -24,5 +24,10 @@ export class FleetController {
     @Post()
     createFleet(@Body() body){
         return this.fleetService.createFleet(body)
+    }
+
+    @Put('/:id')
+    update(@Param('id') id: number, @Body() body) {
+        return this.fleetService.updateFleet(id, body)
     }
 }

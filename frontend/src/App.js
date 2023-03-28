@@ -5,14 +5,15 @@ import './App.css';
 function App() {
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
-    Title: '',
-    ProjectType: '',
-    PageCount: '',
-    Price: ''
+    Name: '',
+    Surname: '',
+    GroupNumber: '',
+    Subscription: '',
+    Category: ''
   });
 
   const ShowAllData = () => {
-    axios.get('http://localhost:3000/catalog')
+    axios.get('http://localhost:3000/cadet')
       .then(response => {
         setData(response.data);
       })
@@ -30,7 +31,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:3000/catalog', formData)
+    axios.post('http://localhost:3000/cadet', formData)
       .then(response => {
         console.log(response.data);
         ShowAllData();
@@ -41,7 +42,7 @@ function App() {
   }
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/catalog/${id}`)
+    axios.delete(`http://localhost:3000/cadet/${id}`)
       .then(response => {
         console.log(response.data);
         ShowAllData();
@@ -61,20 +62,21 @@ function App() {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Project Type</th>
-            <th>Page Count</th>
-            <th>Price</th>
-            <th></th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>GroupNumber</th>
+            <th>Subscription</th>
+            <th>Category</th>
           </tr>
         </thead>
         <tbody>
           {data.map(item => (
             <tr key={item.id}>
-              <td>{item.Title}</td>
-              <td>{item.ProjectType}</td>
-              <td>{item.PageCount}</td>
-              <td>{item.Price}</td>
+              <td>{item.Name}</td>
+              <td>{item.Surname}</td>
+              <td>{item.GroupNumber}</td>
+              <td>{item.Subscription}</td>
+              <td>{item.Category}</td>
               <td><button className='delete_btn' onClick={() => handleDelete(item.id)}>X</button></td>
             </tr>
           ))}
@@ -82,20 +84,24 @@ function App() {
       </table>
       <form onSubmit={handleSubmit}>
         <label>
-          Title:
-          <input type="text" name="Title" value={formData.Title} onChange={handleInputChange} />
+        Name:
+          <input type="text" name="Name" value={formData.Name} onChange={handleInputChange} />
         </label>
         <label>
-          Project Type:
-          <input type="text" name="ProjectType" value={formData.ProjectType} onChange={handleInputChange} />
+        Surname:
+          <input type="text" name="Surname" value={formData.Surname} onChange={handleInputChange} />
         </label>
         <label>
-          Page Count:
-          <input type="number" name="PageCount" value={formData.PageCount} onChange={handleInputChange} />
+        GroupNumber:
+          <input type="number" name="GroupNumber" value={formData.GroupNumber} onChange={handleInputChange} />
         </label>
         <label>
-          Price:
-          <input type="number" name="Price" value={formData.Price} onChange={handleInputChange} />
+        Subscription:
+          <input type="text" name="Subscription" value={formData.Subscription} onChange={handleInputChange} />
+        </label>
+        <label>
+        Category:
+          <input type="text" name="Category" value={formData.Category} onChange={handleInputChange} />
         </label>
         <button type="submit">Add Item</button>
       </form>

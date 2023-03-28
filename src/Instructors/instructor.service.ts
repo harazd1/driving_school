@@ -25,4 +25,8 @@ export class InstructorService {
       getInstructor(id) {
         return this.instructorRepository.findOneBy({id: id});
       }
+
+      updateInstructor(id: number, body) {
+        return this.instructorRepository.update({ id }, body );
+      }
 }

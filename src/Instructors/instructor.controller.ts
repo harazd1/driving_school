@@ -1,5 +1,5 @@
 import { Controller, Delete, Get, Param } from '@nestjs/common';
-import { Body, Post } from '@nestjs/common/decorators';
+import { Body, Post, Put } from '@nestjs/common/decorators';
 import { InstructorService } from './instructor.service';
 
 @Controller('instructor')
@@ -24,5 +24,10 @@ export class InstructorController {
     @Post()
     createCadet(@Body() body){
         return this.instructorService.createInstructor(body)
+    }
+
+    @Put('/:id')
+    update(@Param('id') id: number, @Body() body) {
+        return this.instructorService.updateInstructor(id, body)
     }
 }

@@ -25,4 +25,8 @@ export class FleetService {
       getFleet(id) {
         return this.fleetRepository.findOneBy({id: id});
       }
+
+      updateFleet(id: number, body) {
+        return this.fleetRepository.update({ id }, body );
+      }
 }

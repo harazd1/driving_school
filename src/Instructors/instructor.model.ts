@@ -6,7 +6,7 @@ import {
 
 
   
-@Entity({ name: 'cadets' })
+@Entity({ name: 'instructors' })
 export class Instructor  {
     @PrimaryGeneratedColumn({ type: 'bigint' })
     id: number;
