@@ -6,6 +6,7 @@ import { Fleet } from './Fleets/fleet.model';
 import { FleetModule } from './Fleets/fleet.module';
 import { Instructor } from './Instructors/instructor.model';
 import { InstructorModule } from './Instructors/instructor.module';
+import { ALLModule } from './AllEntities/all.module';
 
 
 @Module({
@@ -22,7 +23,8 @@ import { InstructorModule } from './Instructors/instructor.module';
     }),
      CadetModule,
      InstructorModule,
-     FleetModule
+     FleetModule,
+     ALLModule
   ],
   controllers: [],
   providers: [],

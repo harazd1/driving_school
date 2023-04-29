@@ -58,7 +58,7 @@ function App() {
 
   return (
     <div className="App">
-      <h2>CATALOG</h2>
+      <h2>Cadets</h2>
       <table className="data-table">
         <thead>
           <tr>
