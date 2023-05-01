@@ -16,7 +16,7 @@ import { ALLModule } from './AllEntities/all.module';
       host:'localhost',
       port:3306,
       username:'root',
-      password:'password',
+      password:'Vikuk2003#',
       database:'driving_school',
       entities:[Cadet, Instructor, Fleet],
       synchronize: true,
