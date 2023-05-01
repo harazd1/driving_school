@@ -1,6 +1,8 @@
+import { Instructor } from '../Instructors/instructor.model';
 import {
     Column,
     Entity,
+    OneToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 

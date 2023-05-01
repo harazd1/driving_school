@@ -1,7 +1,12 @@
+import { Cadet } from '../Cadets/cadet/cadet.model';
+import { Fleet } from '../Fleets/fleet.model';
 import {
     Column,
     Entity,
     PrimaryGeneratedColumn,
+    ManyToOne,
+    OneToMany,
+    JoinColumn
   } from 'typeorm';
 
 
@@ -21,6 +26,13 @@ export class Instructor  {
     Category: string;
 
     @Column()
-    Car: string;
+    carId: number;
+    
+    // @OneToMany(() => Fleet, (fleet) => fleet.instructor)
+    // fleet: Fleet[];
 
+
+    // @ManyToOne(() => Cadet, (cadet) => cadet.instructors)
+    // @JoinColumn({ name: 'cadet_id' })
+    // cadet: Cadet;
 }
