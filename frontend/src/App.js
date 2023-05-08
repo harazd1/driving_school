@@ -20,6 +20,15 @@ function App() {
     carId: ''
   });
 
+  const [dataFleet, setDataFleet] = useState([]);
+  const [formDataFleet, setFormDataFleet] = useState({
+    Plate: '',
+    Brand: '',
+    Model: '',
+    Fuel: '',
+    Transmission: ''
+  });
+
   const ShowAllDataCadet = () => {
     axios.get('http://localhost:3000/cadet')
       .then(response => {
@@ -40,6 +49,16 @@ function App() {
       });
   }
 
+  const ShowAllDataFleet = () => {
+    axios.get('http://localhost:3000/fleet')
+      .then(response => {
+        setDataFleet(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   const handleInputChangeCadet = (event) => {
     setFormDataCadet({
       ...formDataCadet,
@@ -50,6 +69,13 @@ function App() {
   const handleInputChangeInstructor = (event) => {
     setFormDataInstructor({
       ...formDataInstructor,
+      [event.target.name]: event.target.value
+    });
+  }
+
+  const handleInputChangeFleet = (event) => {
+    setFormDataFleet({
+      ...formDataFleet,
       [event.target.name]: event.target.value
     });
   }
@@ -78,6 +104,18 @@ function App() {
       });
   }
 
+  const handleSubmitFleet= (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:3000/fleet', formDataFleet)
+      .then(response => {
+        console.log(response.data);
+        ShowAllDataFleet();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   const handleDeleteCadet = (id) => {
     axios.delete(`http://localhost:3000/cadet/${id}`)
       .then(response => {
@@ -94,6 +132,17 @@ function App() {
       .then(response => {
         console.log(response.data);
         ShowAllDataInstructor();
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  const handleDeleteFleet = (id) => {
+    axios.delete(`http://localhost:3000/fleet/${id}`)
+      .then(response => {
+        console.log(response.data);
+        ShowAllDataFleet();
       })
       .catch(error => {
         console.log(error);
@@ -142,10 +191,13 @@ function App() {
   useEffect(() => {
     ShowAllDataCadet();
     ShowAllDataInstructor();
+    ShowAllDataFleet();
   }, []);
 
   return (
     <div className="App">
+      <div className="tables">
+        <div className="cadet_table">
       <h2>Cadets</h2>
       <table className="data-table">
         <thead>
@@ -193,7 +245,7 @@ function App() {
         </label>
         <button type="submit">Add Item</button>
       </form>
-
+      </div>
 
 
 
@@ -249,6 +301,71 @@ function App() {
 
 
 
+
+
+
+
+
+    <div className="fleetBlock">
+
+<h2>Fleets</h2>
+  <table className="data-table">
+    <thead>
+      <tr>
+        <th>Plate</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Fuel</th>
+        <th>Transmission</th>
+      </tr>
+    </thead>
+    <tbody>
+      {dataFleet.map(item => (
+        <tr key={item.id}>
+          <td>{item.Plate}</td>
+          <td>{item.Brand}</td>
+          <td>{item.Model}</td>
+          <td>{item.Fuel}</td>
+          <td>{item.Transmission}</td>
+          <td><button className='delete_btn' onClick={() => handleDeleteFleet(item.id)}>X</button></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  <form onSubmit={handleSubmitFleet}>
+    <label>
+    Plate:
+      <input type="text" name="Plate" value={formDataFleet.Plate} onChange={handleInputChangeFleet} />
+    </label>
+    <label>
+    Brand:
+      <input type="text" name="Brand" value={formDataFleet.Brand} onChange={handleInputChangeFleet} />
+    </label>
+    <label>
+    Model:
+      <input type="text" name="Model" value={formDataFleet.Model} onChange={handleInputChangeFleet} />
+    </label>
+    <label>
+    Fuel:
+      <input type="text" name="Fuel" value={formDataFleet.Fuel} onChange={handleInputChangeFleet} />
+    </label>
+
+    <label>
+    Transmission:
+      <input type="text" name="Transmission" value={formDataFleet.Transmission} onChange={handleInputChangeFleet} />
+    </label>
+    <button type="submit">Add Item</button>
+  </form>
+
+</div>
+</div>
+
+
+
+<div className="requests_block">
+
+      <div className="request">
+      <h3>Add name</h3>
       <button onClick={handleClick}>Show Instructors and their Cars</button>
       <table className="data-table">
         <thead>
@@ -274,7 +391,11 @@ function App() {
           ))}
         </tbody>
       </table>
+      </div>
 
+
+      <div className="request">
+      <h3>Add name</h3>
       <button onClick={thirdHandleClick}>Show Instructors, Cars, and Cadets</button>
       <table className="data-table">
         <thead>
@@ -307,6 +428,10 @@ function App() {
         </tbody>
       </table>
 
+      </div>
+
+      <div className="request">
+        <h3>Add name</h3>
       <input type="text" value={instructorId} onChange={(e) => setInstructorId(e.target.value)} />
       <button onClick={handleCarsSearch}>Search</button>
       {error && <p>{error}</p>}
@@ -332,6 +457,8 @@ function App() {
       ) : (
         <p>No fleets found</p>
       )}
+      </div>
+      </div>
     </div>
   );
 }
